@@ -1,0 +1,38 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/yuzhu/octomap_ws/devel/include/**",
+        "/home/yuzhu/sfc_ws/devel_isolated/decomp_ros_msgs/include/**",
+        "/home/yuzhu/map_build/devel/include/**",
+        "/home/yuzhu/Mavcam_ws/devel/include/**",
+        "/home/yuzhu/Swarm_ws/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/yuzhu/sfc_ws/devel_isolated/decomp_util/include/**",
+        "/home/yuzhu/Swarm_ws/src/UWBsimulation/include/**",
+        "/home/yuzhu/sfc_ws/src/decomp-ros/decomp_ros_utils/include/**",
+        "/home/yuzhu/map_build/src/gmm_map/include/**",
+        "/home/yuzhu/Mavcam_ws/src/gmm_test_ws/src/gmm_fit/gmm_test/gmm_test/include/**",
+        "/home/yuzhu/Mavcam_ws/src/jps_planner/include/**",
+        "/home/yuzhu/Mavcam_ws/src/leader_selection/include/**",
+        "/home/yuzhu/Swarm_ws/src/local_pose/include/**",
+        "/home/yuzhu/octomap_ws/src/octomap/octomap_server/include/**",
+        "/home/yuzhu/Mavcam_ws/src/quadrotor_msgs/include/**",
+        "/home/yuzhu/Swarm_ws/src/serial/include/**",
+        "/home/yuzhu/Mavcam_ws/src/swarm_rviz/include/**",
+        "/home/yuzhu/Swarm_ws/src/vrpn_client_ros/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

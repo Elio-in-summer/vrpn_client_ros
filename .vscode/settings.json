@@ -1,0 +1,21 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/yuzhu/octomap_ws/devel/lib/python3/dist-packages",
+        "/home/yuzhu/sfc_ws/devel_isolated/decomp_ros_msgs/lib/python3/dist-packages",
+        "/home/yuzhu/map_build/devel/lib/python3/dist-packages",
+        "/home/yuzhu/Mavcam_ws/devel/lib/python3/dist-packages",
+        "/home/yuzhu/Swarm_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/yuzhu/octomap_ws/devel/lib/python3/dist-packages",
+        "/home/yuzhu/sfc_ws/devel_isolated/decomp_ros_msgs/lib/python3/dist-packages",
+        "/home/yuzhu/map_build/devel/lib/python3/dist-packages",
+        "/home/yuzhu/Mavcam_ws/devel/lib/python3/dist-packages",
+        "/home/yuzhu/Swarm_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ],
+    "files.associations": {
+        "iostream": "cpp"
+    }
+}
