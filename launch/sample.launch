@@ -5,6 +5,10 @@
   <node pkg="vrpn_client_ros" type="vrpn_client_node" name="vrpn_client_node" output="screen">
     <remap from="vrpn_client_node/drone000/pose" to="/uav0/mavros/vision/pose" />
     <remap from="vrpn_client_node/drone01/pose" to="/uav1/mavros/vision/pose" />
+    <remap from="vrpn_client_node/drone02/pose" to="/uav2/mavros/vision/pose" />
+    <remap from="vrpn_client_node/drone03/pose" to="/uav3/mavros/vision/pose" />
+    <remap from="vrpn_client_node/drone04/pose" to="/uav4/mavros/vision/pose" />
+
 
     <rosparam subst_value="true">
       server: $(arg server)
