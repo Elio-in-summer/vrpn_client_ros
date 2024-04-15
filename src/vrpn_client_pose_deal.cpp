@@ -93,15 +93,15 @@ int main(int argc, char** argv){
     ros::NodeHandle nh;
 
     ros::Subscriber uav0_vision_sub = nh.subscribe<geometry_msgs::PoseStamped>
-            ("/uav0/mavros/vision/pose", 1, uav0_vision_cb);
+            ("/uav0/mavros/vision/pose_ori", 1, uav0_vision_cb);
     ros::Subscriber uav1_vision_sub = nh.subscribe<geometry_msgs::PoseStamped>
-            ("/uav1/mavros/vision/pose", 1, uav1_vision_cb);
+            ("/uav1/mavros/vision/pose_ori", 1, uav1_vision_cb);
     ros::Subscriber uav2_vision_sub = nh.subscribe<geometry_msgs::PoseStamped>
-            ("/uav2/mavros/vision/pose", 1, uav2_vision_cb);
+            ("/uav2/mavros/vision/pose_ori", 1, uav2_vision_cb);
     ros::Subscriber uav3_vision_sub = nh.subscribe<geometry_msgs::PoseStamped>
-            ("/uav3/mavros/vision/pose", 1, uav3_vision_cb);
+            ("/uav3/mavros/vision/pose_ori", 1, uav3_vision_cb);
     ros::Subscriber uav4_vision_sub = nh.subscribe<geometry_msgs::PoseStamped>
-            ("/uav4/mavros/vision/pose", 1, uav4_vision_cb);
+            ("/uav4/mavros/vision/pose_ori", 1, uav4_vision_cb);
 
     ros::Publisher uav0_vision_pub = nh.advertise<geometry_msgs::PoseStamped>
             ("/uav0/mavros/vision_pose/pose", 1);

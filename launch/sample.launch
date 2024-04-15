@@ -28,7 +28,4 @@
       #- SecondTracker
     </rosparam>
   </node>
-
-  <node pkg="vrpn_client_ros" type="vrpn_client_pose_deal" name="vrpn_client_pose_deal" output="screen">
-  </node>
 </launch>
