@@ -1,3 +1,4 @@
+
 /**
 *
 *  \author     Paul Bovbel <pbovbel@clearpathrobotics.com>
@@ -38,11 +39,6 @@
 #include <vector>
 #include <unordered_set>
 #include <algorithm>
-
-double init_x = 0.0;
-double init_y = 0.0;
-double init_z = 0.0;
-bool first_record = true;
 
 namespace
 {
@@ -179,13 +175,6 @@ namespace vrpn_client_ros
       else
       {
         tracker->pose_msg_.header.stamp = ros::Time::now();
-      }
-
-      if (first_record == true){
-        init_x = tracker_pose.pos[0];
-        init_y = tracker_pose.pos[1];
-        init_z = tracker_pose.pos[2];
-        first_record = false;
       }
 
       tracker->pose_msg_.pose.position.x = tracker_pose.pos[0];
