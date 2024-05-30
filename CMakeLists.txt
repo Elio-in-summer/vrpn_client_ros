@@ -2,13 +2,19 @@ cmake_minimum_required(VERSION 2.8.3)
 project(vrpn_client_ros)
 
 find_package(catkin_simple REQUIRED)
+find_package(Eigen3 REQUIRED)
 catkin_simple(ALL_DEPS_REQUIRED)
 
 catkin_package(
-  INCLUDE_DIRS include
+  INCLUDE_DIRS include ${EIGEN3_INCLUDE_DIR}
   LIBRARIES vrpn_client_ros
   CATKIN_DEPENDS geometry_msgs tf2_ros
-  DEPENDS VRPN
+  DEPENDS VRPN EIGEN3
+)
+
+include_directories(
+  include
+  ${EIGEN3_INCLUDE_DIR}
 )
 
 set_directory_properties(PROPERTIES COMPILE_OPTIONS "-std=c++11;-Wall")
@@ -65,3 +71,7 @@ if(CATKIN_ENABLE_TESTING)
   roslaunch_add_file_check(launch)
 endif()
 
+add_executable(trans_node
+src/trans_cam_vicon.cpp
+)
+target_link_libraries(trans_node ${catkin_LIBRARIES})

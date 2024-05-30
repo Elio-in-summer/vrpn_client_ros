@@ -1,9 +1,15 @@
-
 <launch>
 
-  <arg name="server" default="localhost"/>
+  <arg name="server" default="192.168.2.102"/>
 
   <node pkg="vrpn_client_ros" type="vrpn_client_node" name="vrpn_client_node" output="screen">
+    <remap from="vrpn_client_node/hxl_uav/pose" to="/hxl_uav/mocap/pos" />
+    <remap from="vrpn_client_node/hxl_uav/twist" to="/hxl_uav/mocap/vel" />
+    <remap from="vrpn_client_node/hxl_uav/accel" to="/hxl_uav/mocap/acc" />
+    <remap from="vrpn_client_node/hxl_arm/pose" to="/hxl_arm/mocap/pos" />
+    <remap from="vrpn_client_node/hxl_arm/twist" to="/hxl_arm/mocap/vel" />
+    <remap from="vrpn_client_node/hxl_arm/accel" to="/hxl_arm/mocap/acc" />
+
     <rosparam subst_value="true">
       server: $(arg server)
       port: 3883
@@ -22,4 +28,10 @@
       #- SecondTracker
     </rosparam>
   </node>
+
+  <node  pkg="viconros" type="trans_node" output="screen" name="trans_node">
+    <remap from="/vicon/uav/pose" to = "/hxl_uav/mocap/pos"/>
+    <remap from="/vicon/uav/vel" to = "/hxl_uav/mocap/vel"/>
+  </node>
+
 </launch>
