@@ -40,13 +40,19 @@
 #include <unordered_set>
 #include <algorithm>
 
+#include <Eigen/Dense>
 namespace
 {
   std::unordered_set<std::string> name_blacklist_({"VRPN Control"});
 }
 
 namespace vrpn_client_ros
-{
+{ 
+  // ! Define a Rotation from MotionCapture's frame to my frame manually
+  // ! The Rotation is rotate -90 degree around z axis
+  Eigen::Matrix3d R_mc2my = (Eigen::Matrix3d() << 0, -1, 0,
+                                                 1,  0, 0,
+                                                 0,  0, 1).finished();
 
   /**
    * check Ros Names as defined here: http://wiki.ros.org/Names
@@ -177,14 +183,18 @@ namespace vrpn_client_ros
         tracker->pose_msg_.header.stamp = ros::Time::now();
       }
 
-      tracker->pose_msg_.pose.position.x = tracker_pose.pos[0];
-      tracker->pose_msg_.pose.position.y = tracker_pose.pos[1];
-      tracker->pose_msg_.pose.position.z = tracker_pose.pos[2];
-
-      tracker->pose_msg_.pose.orientation.x = tracker_pose.quat[0];
-      tracker->pose_msg_.pose.orientation.y = tracker_pose.quat[1];
-      tracker->pose_msg_.pose.orientation.z = tracker_pose.quat[2];
-      tracker->pose_msg_.pose.orientation.w = tracker_pose.quat[3];
+      // ! Convert the position and orientation from MotionCapture's frame to my frame
+      Eigen::Vector3d pos(tracker_pose.pos[0], tracker_pose.pos[1], tracker_pose.pos[2]);
+      pos = R_mc2my * pos;
+      tracker->pose_msg_.pose.position.x = pos[0];
+      tracker->pose_msg_.pose.position.y = pos[1];
+      tracker->pose_msg_.pose.position.z = pos[2];
+      Eigen::Quaterniond q(tracker_pose.quat[3], tracker_pose.quat[0], tracker_pose.quat[1], tracker_pose.quat[2]);
+      q = R_mc2my * q;
+      tracker->pose_msg_.pose.orientation.w = q.w();
+      tracker->pose_msg_.pose.orientation.x = q.x();
+      tracker->pose_msg_.pose.orientation.y = q.y();
+      tracker->pose_msg_.pose.orientation.z = q.z();
 
       pose_pub->publish(tracker->pose_msg_);
     }
@@ -262,14 +272,19 @@ namespace vrpn_client_ros
         tracker->twist_msg_.header.stamp = ros::Time::now();
       }
 
-      tracker->twist_msg_.twist.linear.x = tracker_twist.vel[0];
-      tracker->twist_msg_.twist.linear.y = tracker_twist.vel[1];
-      tracker->twist_msg_.twist.linear.z = tracker_twist.vel[2];
+      // ! Convert the velocity and angular velocity from MotionCapture's frame to my frame
+      Eigen::Vector3d vel(tracker_twist.vel[0], tracker_twist.vel[1], tracker_twist.vel[2]);
+      vel = R_mc2my * vel;
+      tracker->twist_msg_.twist.linear.x = vel[0];
+      tracker->twist_msg_.twist.linear.y = vel[1];
+      tracker->twist_msg_.twist.linear.z = vel[2];
 
       double roll, pitch, yaw;
+      Eigen::Quaterniond vel_q(tracker_twist.vel_quat[3], tracker_twist.vel_quat[0], tracker_twist.vel_quat[1], tracker_twist.vel_quat[2]);
+      vel_q = R_mc2my * vel_q;
+
       tf2::Matrix3x3 rot_mat(
-          tf2::Quaternion(tracker_twist.vel_quat[0], tracker_twist.vel_quat[1], tracker_twist.vel_quat[2],
-                          tracker_twist.vel_quat[3]));
+          tf2::Quaternion(  vel_q.x(), vel_q.y(), vel_q.z(), vel_q.w()  ));
       rot_mat.getRPY(roll, pitch, yaw);
 
       tracker->twist_msg_.twist.angular.x = roll;
@@ -316,15 +331,18 @@ namespace vrpn_client_ros
       {
         tracker->accel_msg_.header.stamp = ros::Time::now();
       }
-
-      tracker->accel_msg_.accel.linear.x = tracker_accel.acc[0];
-      tracker->accel_msg_.accel.linear.y = tracker_accel.acc[1];
-      tracker->accel_msg_.accel.linear.z = tracker_accel.acc[2];
+      // ! Convert the acceleration and angular acceleration from MotionCapture's frame to my frame
+      Eigen::Vector3d acc(tracker_accel.acc[0], tracker_accel.acc[1], tracker_accel.acc[2]);
+      acc = R_mc2my * acc;
+      tracker->accel_msg_.accel.linear.x = acc[0];
+      tracker->accel_msg_.accel.linear.y = acc[1];
+      tracker->accel_msg_.accel.linear.z = acc[2];
 
       double roll, pitch, yaw;
+      Eigen::Quaterniond acc_q(tracker_accel.acc_quat[3], tracker_accel.acc_quat[0], tracker_accel.acc_quat[1], tracker_accel.acc_quat[2]);
+      acc_q = R_mc2my * acc_q;
       tf2::Matrix3x3 rot_mat(
-          tf2::Quaternion(tracker_accel.acc_quat[0], tracker_accel.acc_quat[1], tracker_accel.acc_quat[2],
-                          tracker_accel.acc_quat[3]));
+          tf2::Quaternion(  acc_q.x(), acc_q.y(), acc_q.z(), acc_q.w()  ));
       rot_mat.getRPY(roll, pitch, yaw);
 
       tracker->accel_msg_.accel.angular.x = roll;

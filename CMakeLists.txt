@@ -75,3 +75,8 @@ add_executable(trans_node
 src/trans_cam_vicon.cpp
 )
 target_link_libraries(trans_node ${catkin_LIBRARIES})
+
+add_executable(mocap_transform_node
+src/trans_test.cpp
+)
+target_link_libraries(mocap_transform_node ${catkin_LIBRARIES})
