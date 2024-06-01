@@ -29,9 +29,4 @@
     </rosparam>
   </node>
 
-  <node  pkg="viconros" type="trans_node" output="screen" name="trans_node">
-    <remap from="/vicon/uav/pose" to = "/hxl_uav/mocap/pos"/>
-    <remap from="/vicon/uav/vel" to = "/hxl_uav/mocap/vel"/>
-  </node>
-
 </launch>
