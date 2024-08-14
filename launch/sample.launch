@@ -6,9 +6,9 @@
     <remap from="vrpn_client_node/hxl_uav/pose" to="/hxl_uav/mocap/pos" />
     <remap from="vrpn_client_node/hxl_uav/twist" to="/hxl_uav/mocap/vel" />
     <remap from="vrpn_client_node/hxl_uav/accel" to="/hxl_uav/mocap/acc" />
-    <remap from="vrpn_client_node/hxl_arm/pose" to="/hxl_arm/mocap/pos" />
-    <remap from="vrpn_client_node/hxl_arm/twist" to="/hxl_arm/mocap/vel" />
-    <remap from="vrpn_client_node/hxl_arm/accel" to="/hxl_arm/mocap/acc" />
+    <remap from="vrpn_client_node/hxl_mani/pose" to="/hxl_arm/mocap/pos" />
+    <remap from="vrpn_client_node/hxl_mani/twist" to="/hxl_arm/mocap/vel" />
+    <remap from="vrpn_client_node/hxl_mani/accel" to="/hxl_arm/mocap/acc" />
 
     <rosparam subst_value="true">
       server: $(arg server)
